@@ -3,13 +3,15 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 open class MSResizingHandleView: UIView {
     private struct Constants {
         static let markSize = CGSize(width: 36, height: 4)
         static let markCornerRadius: CGFloat = 2
     }
 
-    public static let height: CGFloat = 20
+    @objc public static let height: CGFloat = 20
 
     private let markLayer: CALayer = {
         let markLayer = CALayer()

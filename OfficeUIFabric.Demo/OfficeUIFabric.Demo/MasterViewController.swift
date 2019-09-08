@@ -17,15 +17,24 @@ class MasterViewController: UITableViewController {
     }
     var demoPlaceholder: UIViewController?
 
+    let demos: [(title: String, controllerClass: UIViewController.Type)] = OfficeUIFabric_Demo.demos.filter { demo in
+        #if DEBUG
+        return true
+        #else
+        return !demo.title.hasPrefix("DEBUG")
+        #endif
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let titleView = MSTwoLinesTitleView()
+        let titleView = MSTwoLineTitleView()
         titleView.setup(
             title: navigationItem.title ?? "",
             subtitle: OfficeUIFabricFramework.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         )
         navigationItem.titleView = titleView
 
+        tableView.backgroundColor = MSColors.Table.background
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
     }

@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 public class OfficeUIFabricFramework: NSObject {
     public static var bundle: Bundle { return Bundle(for: self) }
     public static var resourceBundle: Bundle {
@@ -13,34 +15,49 @@ public class OfficeUIFabricFramework: NSObject {
   }
 
     public static func initializeAppearance() {
-        // UINavigationBar
-        let navigationBar = UINavigationBar.appearance()
-        navigationBar.isTranslucent = false
-        navigationBar.barTintColor = MSColors.background
-        navigationBar.tintColor = MSColors.primary
-
-        var titleAttributes = navigationBar.titleTextAttributes ?? [:]
-        titleAttributes[.font] = MSFonts.headline
-        titleAttributes[.foregroundColor] = MSColors.primary
-        navigationBar.titleTextAttributes = titleAttributes
-
-        navigationBar.backIndicatorImage = UIImage.staticImageNamed("back-25x25")
-        navigationBar.backIndicatorTransitionMaskImage = navigationBar.backIndicatorImage
+        initializeUINavigationBarAppearance(UINavigationBar.appearance())
+        if #available(iOS 12, *) {
+            let light = UITraitCollection(userInterfaceStyle: .light)
+            let dark = UITraitCollection(userInterfaceStyle: .dark)
+            initializeUINavigationBarAppearance(UINavigationBar.appearance(for: light), traits: light)
+            initializeUINavigationBarAppearance(UINavigationBar.appearance(for: dark), traits: dark)
+        }
 
         // UIToolbar
         let toolbar = UIToolbar.appearance()
         toolbar.isTranslucent = false
-        toolbar.barTintColor = MSColors.background
-        toolbar.tintColor = MSColors.primary
+        toolbar.barTintColor = MSColors.Toolbar.background
+        toolbar.tintColor = MSColors.Toolbar.tint
 
         // UIBarButtonItem
         let barButtonItem = UIBarButtonItem.appearance()
-        titleAttributes = barButtonItem.titleTextAttributes(for: .normal) ?? [:]
-        titleAttributes[.font] = MSFonts.body
+        var titleAttributes = barButtonItem.titleTextAttributes(for: .normal) ?? [:]
+        titleAttributes[.font] = MSFonts.bodyUnscaled
         barButtonItem.setTitleTextAttributes(titleAttributes, for: .normal)
 
-        // UISwitch
-        let `switch` = UISwitch.appearance()
-        `switch`.onTintColor = MSColors.primary
+        initializeUISwitchAppearance(UISwitch.appearance())
+    }
+
+    static func initializeUINavigationBarAppearance(_ navigationBar: UINavigationBar, traits: UITraitCollection? = nil) {
+        navigationBar.isTranslucent = false
+        navigationBar.barTintColor = MSColors.NavigationBar.background
+        navigationBar.tintColor = MSColors.NavigationBar.tint
+        if #available(iOS 12, *) {
+            let traits = traits ?? navigationBar.traitCollection
+            // Removing built-in shadow for Dark Mode
+            navigationBar.shadowImage = traits.userInterfaceStyle == .dark ? UIImage() : nil
+        }
+
+        var titleAttributes = navigationBar.titleTextAttributes ?? [:]
+        titleAttributes[.font] = MSFonts.headlineUnscaled
+        titleAttributes[.foregroundColor] = MSColors.NavigationBar.title
+        navigationBar.titleTextAttributes = titleAttributes
+
+        navigationBar.backIndicatorImage = UIImage.staticImageNamed("back-25x25")?.withRenderingMode(.alwaysTemplate)
+        navigationBar.backIndicatorTransitionMaskImage = navigationBar.backIndicatorImage
+    }
+
+    static func initializeUISwitchAppearance(_ `switch`: UISwitch) {
+        `switch`.onTintColor = MSColors.Switch.onTint
     }
 }

@@ -8,7 +8,6 @@ import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
 import AppCenterDistribute
-import AppCenterPush
 #endif
 import OfficeUIFabric
 import UIKit
@@ -40,8 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         MSAppCenter.start(appCenterSecret, withServices: [
             MSAnalytics.self,
             MSCrashes.self,
-            MSDistribute.self,
-            MSPush.self
+            MSDistribute.self
         ])
         #endif
 

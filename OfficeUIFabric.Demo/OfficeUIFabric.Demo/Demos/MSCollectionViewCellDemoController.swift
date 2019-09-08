@@ -9,7 +9,7 @@ import OfficeUIFabric
 // MARK: MSCollectionViewCellDemoController
 
 class MSCollectionViewCellDemoController: DemoController {
-    private let sections: [TableViewSampleData.Section] = TableViewSampleData.sections
+    private let sections: [TableViewSampleData.Section] = MSTableViewCellSampleData.sections
 
     private var isInSelectionMode: Bool = false {
         didSet {
@@ -20,8 +20,9 @@ class MSCollectionViewCellDemoController: DemoController {
                     continue
                 }
 
-                let cell = collectionView.cellForItem(at: indexPath) as! MSCollectionViewCell
-                cell.cellView.setIsInSelectionMode(isInSelectionMode, animated: true)
+                if let cell = collectionView.cellForItem(at: indexPath) as? MSCollectionViewCell {
+                    cell.cellView.setIsInSelectionMode(isInSelectionMode, animated: true)
+                }
             }
 
             collectionView.indexPathsForSelectedItems?.forEach {
@@ -44,10 +45,10 @@ class MSCollectionViewCellDemoController: DemoController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: flowLayout)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(MSCollectionViewCell.self, forCellWithReuseIdentifier: MSCollectionViewCell.identifier)
-        collectionView.register(CollectionViewSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewSectionHeader.identifier)
+        collectionView.register(MSCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MSCollectionViewHeaderFooterView.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = MSColors.background
+        collectionView.backgroundColor = MSColors.Table.background
         view.addSubview(collectionView)
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeCategoryDidChange), name: UIContentSizeCategory.didChangeNotification, object: nil)
@@ -63,7 +64,6 @@ class MSCollectionViewCellDemoController: DemoController {
                 // Higher value of 100 needed for proper layout on iOS 11
                 flowLayout.estimatedItemSize = CGSize(width: view.width, height: 100)
             }
-            flowLayout.headerReferenceSize = CGSize(width: view.width, height: CollectionViewSectionHeader.height)
         }
         super.viewWillLayoutSubviews()
     }
@@ -94,7 +94,7 @@ extension MSCollectionViewCellDemoController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return TableViewSampleData.Section.itemCount
+        return MSTableViewCellSampleData.numberOfItemsInSection
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,18 +103,18 @@ extension MSCollectionViewCellDemoController: UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MSCollectionViewCell.identifier, for: indexPath) as! MSCollectionViewCell
         cell.cellView.setup(
-            title: item.title,
-            subtitle: item.subtitle,
-            footer: item.footer,
+            title: item.text1,
+            subtitle: item.text2,
+            footer: item.text3,
             customView: TableViewSampleData.createCustomView(imageName: item.image),
-            customAccessoryView: section.hasAccessoryView ? TableViewSampleData.customAccessoryView : nil,
-            accessoryType: TableViewSampleData.accessoryType(for: indexPath)
+            customAccessoryView: section.hasAccessoryView ? MSTableViewCellSampleData.customAccessoryView : nil,
+            accessoryType: MSTableViewCellSampleData.accessoryType(for: indexPath)
         )
         cell.cellView.titleNumberOfLines = section.numberOfLines
         cell.cellView.subtitleNumberOfLines = section.numberOfLines
         cell.cellView.footerNumberOfLines = section.numberOfLines
         cell.cellView.isInSelectionMode = section.allowsMultipleSelection ? isInSelectionMode : false
-        cell.cellView.onAccessoryTapped = { [unowned self] in self.showAlertForDetailButtonTapped(title: item.title) }
+        cell.cellView.onAccessoryTapped = { [unowned self] in self.showAlertForDetailButtonTapped(title: item.text1) }
         return cell
     }
 
@@ -132,8 +132,9 @@ extension MSCollectionViewCellDemoController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewSectionHeader.identifier, for: indexPath) as! CollectionViewSectionHeader
-            header.title = sections[indexPath.section].title
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MSCollectionViewHeaderFooterView.identifier, for: indexPath) as! MSCollectionViewHeaderFooterView
+            let section = sections[indexPath.section]
+            header.headerFooterView.setup(style: section.headerStyle, title: section.title)
             return header
         default:
             return UICollectionReusableView()
@@ -152,5 +153,13 @@ extension MSCollectionViewCellDemoController: UICollectionViewDelegate {
         } else {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
+    }
+}
+
+// MARK: - MSCollectionViewCellDemoController: UICollectionViewDelegateFlowLayout
+
+extension MSCollectionViewCellDemoController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.width, height: MSTableViewHeaderFooterView.height(style: .header, title: ""))
     }
 }

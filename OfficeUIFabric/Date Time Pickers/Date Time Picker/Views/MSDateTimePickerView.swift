@@ -3,7 +3,7 @@
 //  Licensed under the MIT License.
 //
 
-import Foundation
+import UIKit
 
 // MARK: MSDateTimePickerViewMode
 
@@ -53,7 +53,9 @@ class MSDateTimePickerView: UIControl {
 
     private let gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor.white.cgColor]
+        let backgroundColor = MSColors.DateTimePicker.background
+        let transparentColor = backgroundColor.withAlphaComponent(0)
+        gradientLayer.colors = [backgroundColor.cgColor, transparentColor.cgColor, transparentColor.cgColor, backgroundColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         return gradientLayer
@@ -76,7 +78,7 @@ class MSDateTimePickerView: UIControl {
         addSubview(selectionTopSeparator)
         addSubview(selectionBottomSeparator)
 
-        backgroundColor = MSColors.background
+        backgroundColor = MSColors.DateTimePicker.background
 
         setDate(date, animated: false)
         setDayOfMonth(dayOfMonth, animated: false)
@@ -131,7 +133,7 @@ class MSDateTimePickerView: UIControl {
         let widthRatio = (width - 2 * MSDateTimePickerViewLayout.horizontalPadding) / (idealWidth - 2 * MSDateTimePickerViewLayout.horizontalPadding)
 
         // Compute components width based on the ratio of this width to ideal width
-        var componentWidths: [CGFloat] = componentTypes.map {
+        let componentWidths: [CGFloat] = componentTypes.map {
             let componentIdealWidth = MSDateTimePickerViewLayout.componentWidths[$0] ?? 0
             return floor(componentIdealWidth * widthRatio)
         }
@@ -166,6 +168,8 @@ class MSDateTimePickerView: UIControl {
 
         setDate(date, animated: false)
         setDayOfMonth(dayOfMonth, animated: false)
+
+        flipSubviewsForRTL()
     }
 
     private func type(of component: MSDateTimePickerViewComponent) -> MSDateTimePickerViewComponentType? {

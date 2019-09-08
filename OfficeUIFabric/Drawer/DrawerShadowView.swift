@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 class DrawerShadowView: UIView {
     private struct Constants {
         static let shadowRadius: CGFloat = 4
@@ -29,10 +31,10 @@ class DrawerShadowView: UIView {
 
     private var animationDuration: TimeInterval = 0
 
-    init(shadowDirection: MSDrawerPresentationDirection) {
+    init(shadowDirection: MSDrawerPresentationDirection?) {
         super.init(frame: .zero)
         layer.shadowRadius = Constants.shadowRadius
-        layer.shadowOffset = CGSize(width: 0, height: Constants.shadowOffset * (shadowDirection == .down ? 1 : -1))
+        layer.shadowOffset = shadowOffset(for: shadowDirection)
         layer.shadowOpacity = Constants.shadowOpacity
         isAccessibilityElement = false
         isUserInteractionEnabled = false
@@ -69,6 +71,23 @@ class DrawerShadowView: UIView {
             }
         }
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+    }
+
+    private func shadowOffset(for shadowDirection: MSDrawerPresentationDirection?) -> CGSize {
+        var offset = CGSize.zero
+        if let shadowDirection = shadowDirection {
+            switch shadowDirection {
+            case .down:
+                offset.height = Constants.shadowOffset
+            case .up:
+                offset.height = -Constants.shadowOffset
+            case .fromLeading:
+                offset.width = Constants.shadowOffset
+            case .fromTrailing:
+                offset.width = -Constants.shadowOffset
+            }
+        }
+        return offset
     }
 
     private func updateFrame() {

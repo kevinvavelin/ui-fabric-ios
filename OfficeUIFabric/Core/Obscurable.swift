@@ -3,7 +3,7 @@
 //  Licensed under the MIT License.
 //
 
-import Foundation
+import UIKit
 
 /// Obscurable represents any UIView containing class that obscures views behind it. It is used to generically use different styles of background obscuring for modals, as well as provide an interface to turn their effect on or off.
 protocol Obscurable: class {
@@ -21,7 +21,7 @@ class ObscurableFactory {
     static func obscurable(with obscureStyle: ObscureStyle) -> Obscurable {
         switch obscureStyle {
         case .blur:
-            return MSBlurringView(style: .dark, backgroundAlpha: 0.0)
+            return MSBlurringView(style: .dark)
         case .dim:
             return MSDimmingView(type: .black)
         }

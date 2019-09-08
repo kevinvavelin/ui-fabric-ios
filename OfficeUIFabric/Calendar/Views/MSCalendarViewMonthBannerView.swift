@@ -3,7 +3,7 @@
 //  Licensed under the MIT License.
 //
 
-import Foundation
+import UIKit
 
 // MARK: MSCalendarViewMonthBannerView
 
@@ -20,9 +20,7 @@ class MSCalendarViewMonthBannerView: UICollectionReusableView {
 
     override init(frame: CGRect) {
         // Month label
-        monthLabel = UILabel(frame: CGRect.zero)
-        monthLabel.font = MSFonts.body
-        monthLabel.textColor = MSColors.black
+        monthLabel = MSLabel(style: .body, colorStyle: .regular)
         monthLabel.textAlignment = .center
         monthLabel.alpha = 0.0  // Initial `isVisible` is `false`
 

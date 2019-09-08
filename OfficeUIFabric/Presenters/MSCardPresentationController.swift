@@ -3,7 +3,7 @@
 //  Licensed under the MIT License.
 //
 
-import Foundation
+import UIKit
 
 class MSCardPresentationController: UIPresentationController {
     // Workaround to get Voiceover to ignore the view behind the action sheet.
@@ -17,7 +17,7 @@ class MSCardPresentationController: UIPresentationController {
     private let backgroundObscurable: Obscurable
 
     init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, backgroundObscurable: Obscurable? = nil) {
-        self.backgroundObscurable = backgroundObscurable ?? MSBlurringView(style: .dark, backgroundAlpha: 0.0)
+        self.backgroundObscurable = backgroundObscurable ?? MSBlurringView(style: .dark)
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
     }
 

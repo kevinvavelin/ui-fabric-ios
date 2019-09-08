@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 /**
  `MSPopupMenuController` is used to present a popup menu that slides from top or bottom depending on `presentationDirection`. Use `presentationOrigin` to specify the vertical offset (in screen coordinates) from which to show popup menu. If not provided it will be calculated automatically: bottom of navigation bar for `.down` presentation and bottom of the screen for `.up` presentation.
 
@@ -17,6 +19,7 @@ open class MSPopupMenuController: MSDrawerController {
 
     open override var contentView: UIView? { get { return super.contentView } set { } }
 
+    open override var presentationStyle: MSDrawerPresentationStyle { get { return .automatic } set { } }
     open override var resizingBehavior: MSDrawerResizingBehavior { get { return .dismiss } set { } }
 
     open override var preferredContentSize: CGSize { get { return super.preferredContentSize } set { } }
@@ -79,6 +82,10 @@ open class MSPopupMenuController: MSDrawerController {
     }
 
     private var sections: [MSPopupMenuSection] = []
+    private var itemForExecutionAfterPopupMenuDismissal: MSPopupMenuItem?
+    private var itemsHaveImages: Bool {
+        return sections.contains(where: { $0.items.contains(where: { $0.image != nil }) })
+    }
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -92,14 +99,7 @@ open class MSPopupMenuController: MSDrawerController {
         view.isHidden = true
         return view
     }()
-    private let tableView = UITableView()
-
-    private var itemsHaveImages: Bool {
-        return sections.contains(where: { $0.items.contains(where: { $0.image != nil }) })
-    }
-    private var needsScrolling: Bool {
-        return tableView.contentSize.height > tableView.bounds.height
-    }
+    private let tableView = UITableView(frame: .zero, style: .grouped)
 
     /// Append new items to the last section of the menu
     /// - note: If there is no section in the menu, create a new one without header and append the items to it
@@ -125,6 +125,18 @@ open class MSPopupMenuController: MSDrawerController {
     open override func initialize() {
         super.initialize()
         initTableView()
+    }
+
+    open override func didDismiss() {
+        if itemForExecutionAfterPopupMenuDismissal?.executionMode == .afterPopupMenuDismissal {
+            itemForExecutionAfterPopupMenuDismissal?.onSelected?()
+            itemForExecutionAfterPopupMenuDismissal = nil
+        }
+        super.didDismiss()
+        if itemForExecutionAfterPopupMenuDismissal?.executionMode == .afterPopupMenuDismissalCompleted {
+            itemForExecutionAfterPopupMenuDismissal?.onSelected?()
+            itemForExecutionAfterPopupMenuDismissal = nil
+        }
     }
 
     open override func viewDidLoad() {
@@ -160,20 +172,14 @@ open class MSPopupMenuController: MSDrawerController {
     }
 
     private func initTableView() {
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = MSColors.Table.background
         tableView.separatorStyle = .none
-        // Prevent automatic insetting of this non-scrollable content
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+        // Helps reduce the delay between touch and action due to a bug in iOS 11
+        if #available(iOS 12.0, *) { } else {
+            tableView.delaysContentTouches = false
         }
         tableView.alwaysBounceVertical = false
         tableView.isAccessibilityElement = true
-
-        // Prevent tap delay when selecting a menu item
-        tableView.delaysContentTouches = false
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        panGestureRecognizer.delegate = self
-        tableView.addGestureRecognizer(panGestureRecognizer)
 
         tableView.register(MSPopupMenuItemCell.self, forCellReuseIdentifier: MSPopupMenuItemCell.identifier)
         tableView.register(MSPopupMenuSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: MSPopupMenuSectionHeaderView.identifier)
@@ -185,57 +191,16 @@ open class MSPopupMenuController: MSDrawerController {
         switch item.executionMode {
         case .onSelection:
             item.onSelected?()
-            if !isBeingDismissed {
-                presentingViewController?.dismiss(animated: true)
-            }
-        case .afterPopupMenuDismissal:
-            presentingViewController?.dismiss(animated: true) {
-                item.onSelected?()
-            }
+        case .afterPopupMenuDismissal, .afterPopupMenuDismissalCompleted:
+            itemForExecutionAfterPopupMenuDismissal = item
+        }
+        if !isBeingDismissed {
+            presentingViewController?.dismiss(animated: true)
         }
     }
 
-    @objc private func handlePanGesture(gestureRecognizer: UIGestureRecognizer) {
-        let point = gestureRecognizer.location(in: tableView)
-
-        switch gestureRecognizer.state {
-        case .began, .changed:
-            // Warm up all the visible cell feedback generators
-            // Each cell has its own generator to allow each to fire perfectly on time when highlight changes
-            for case let cell as MSPopupMenuItemCell in tableView.visibleCells {
-                if cell.feedbackGenerator == nil {
-                    cell.feedbackGenerator = UISelectionFeedbackGenerator()
-                }
-                cell.feedbackGenerator?.prepare()
-            }
-
-            var cell: MSPopupMenuItemCell?
-            if let indexPath = tableView.indexPathForRow(at: point) {
-                cell = tableView.cellForRow(at: indexPath) as? MSPopupMenuItemCell
-            }
-
-            for visibleCell in tableView.visibleCells {
-                visibleCell.isHighlighted = visibleCell == cell
-            }
-
-        case .ended, .cancelled, .failed:
-            guard let indexPath = tableView.indexPathForRow(at: point) else {
-                // Gesture did not finish on a highlighted cell, dismiss the dropdown
-                presentingViewController?.dismiss(animated: true)
-                return
-            }
-
-            let item = sections[indexPath.section].items[indexPath.row]
-            if !item.isEnabled {
-                return
-            }
-
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            tableView(tableView, didSelectRowAt: indexPath)
-
-        default:
-            return
-        }
+    private func item(at indexPath: IndexPath) -> MSPopupMenuItem {
+        return sections[indexPath.section].items[indexPath.item]
     }
 }
 
@@ -271,9 +236,8 @@ extension MSPopupMenuController: UITableViewDelegate {
         return MSPopupMenuSectionHeaderView.preferredHeight(for: sections[section])
     }
 
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = sections[indexPath.section].items[indexPath.row]
-        return MSPopupMenuItemCell.preferredHeight(for: item)
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -286,21 +250,16 @@ extension MSPopupMenuController: UITableViewDelegate {
         return headerView
     }
 
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let item = sections[indexPath.section].items[indexPath.row]
-        return item.isEnabled ? indexPath : nil
+        return item(at: indexPath).isEnabled ? indexPath : nil
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedItemIndexPath = indexPath
-        didSelectItem(sections[indexPath.section].items[indexPath.row])
-    }
-}
-
-// MARK: - MSPopupMenuController: UIGestureRecognizerDelegate
-
-extension MSPopupMenuController: UIGestureRecognizerDelegate {
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return !needsScrolling
+        didSelectItem(item(at: indexPath))
     }
 }

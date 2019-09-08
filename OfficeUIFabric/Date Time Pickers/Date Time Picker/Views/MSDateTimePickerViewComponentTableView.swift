@@ -3,7 +3,7 @@
 //  Licensed under the MIT License.
 //
 
-import Foundation
+import UIKit
 
 // MARK: MSDateTimePickerViewComponentTableView
 
@@ -38,6 +38,7 @@ class MSDateTimePickerViewComponentTableView: UITableView {
     init() {
         super.init(frame: .zero, style: .plain)
 
+        backgroundColor = nil
         separatorInset = UIEdgeInsets.zero
         separatorStyle = .none
         showsVerticalScrollIndicator = false
@@ -52,7 +53,7 @@ class MSDateTimePickerViewComponentTableView: UITableView {
         let cellHeight = MSDateTimePickerViewComponentCell.idealHeight
         let viewOffsetY = round((height - cellHeight) / 2)
         let maxOffsetY = contentSize.height - contentInset.top
-        let minOffsetY = -contentInset.top
+        let minOffsetY = CGFloat(numberOfRows(inSection: 0)) * cellHeight >= height ? -contentInset.top : -.infinity
         let offsetY = max(min(CGFloat(indexPath.row) * cellHeight - viewOffsetY, maxOffsetY), minOffsetY)
         setContentOffset(CGPoint(x: 0, y: offsetY), animated: animated)
     }

@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 // MARK: MSDrawerTransitionAnimator
 
 class MSDrawerTransitionAnimator: NSObject {
@@ -31,7 +33,8 @@ class MSDrawerTransitionAnimator: NSObject {
         let contentView = presentedView.superview!
 
         presentedView.frame = presentedViewRectDismissed(forContentSize: contentView.bounds.size)
-        let animationDuration = MSDrawerTransitionAnimator.animationDuration(forSizeChange: presentedView.height)
+        let sizeChange = presentationDirection.isVertical ? presentedView.height : presentedView.width
+        let animationDuration = MSDrawerTransitionAnimator.animationDuration(forSizeChange: sizeChange)
         UIView.animate(withDuration: animationDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
             presentedView.frame = self.presentedViewRectPresented(forContentSize: presentedView.frame.size)
         }, completion: completion)
@@ -40,7 +43,8 @@ class MSDrawerTransitionAnimator: NSObject {
     private func dismissWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning, completion: @escaping ((Bool) -> Void)) {
         let presentedView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
 
-        let animationDuration = MSDrawerTransitionAnimator.animationDuration(forSizeChange: presentedView.height)
+        let sizeChange = presentationDirection.isVertical ? presentedView.height : presentedView.width
+        let animationDuration = MSDrawerTransitionAnimator.animationDuration(forSizeChange: sizeChange)
         UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
             presentedView.frame = self.presentedViewRectDismissed(forContentSize: presentedView.frame.size)
         }, completion: completion)
@@ -53,6 +57,10 @@ class MSDrawerTransitionAnimator: NSObject {
             rect.origin.y = -contentSize.height
         case .up:
             rect.origin.y = contentSize.height
+        case .fromLeading:
+            rect.origin.x = -contentSize.width
+        case .fromTrailing:
+            rect.origin.x = contentSize.width
         }
         return rect
     }

@@ -9,7 +9,7 @@ import OfficeUIFabric
 // MARK: MSTableViewCellDemoController
 
 class MSTableViewCellDemoController: DemoController {
-    private let sections: [TableViewSampleData.Section] = TableViewSampleData.sections
+    private let sections: [TableViewSampleData.Section] = MSTableViewCellSampleData.sections
 
     private var isInSelectionMode: Bool = false {
         didSet {
@@ -20,8 +20,9 @@ class MSTableViewCellDemoController: DemoController {
                     continue
                 }
 
-                let cell = tableView.cellForRow(at: indexPath) as! MSTableViewCell
-                cell.setIsInSelectionMode(isInSelectionMode, animated: true)
+                if let cell = tableView.cellForRow(at: indexPath) as? MSTableViewCell {
+                    cell.setIsInSelectionMode(isInSelectionMode, animated: true)
+                }
             }
 
             tableView.indexPathsForSelectedRows?.forEach {
@@ -38,15 +39,15 @@ class MSTableViewCellDemoController: DemoController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView = UITableView(frame: view.bounds)
+        tableView = UITableView(frame: view.bounds, style: .grouped)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.register(MSTableViewCell.self, forCellReuseIdentifier: MSTableViewCell.identifier)
-        tableView.register(TableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: TableViewSectionHeader.identifier)
+        tableView.register(MSTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MSTableViewHeaderFooterView.identifier)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = MSColors.background
-        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.backgroundColor = MSColors.Table.background
         tableView.separatorStyle = .none
+        tableView.sectionFooterHeight = 0
         view.addSubview(tableView)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(barButtonTapped))
@@ -74,7 +75,7 @@ extension MSTableViewCellDemoController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TableViewSampleData.Section.itemCount
+        return MSTableViewCellSampleData.numberOfItemsInSection
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,12 +84,12 @@ extension MSTableViewCellDemoController: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: MSTableViewCell.identifier) as! MSTableViewCell
         cell.setup(
-            title: item.title,
-            subtitle: item.subtitle,
-            footer: item.footer,
+            title: item.text1,
+            subtitle: item.text2,
+            footer: item.text3,
             customView: TableViewSampleData.createCustomView(imageName: item.image),
-            customAccessoryView: section.hasAccessoryView ? TableViewSampleData.customAccessoryView : nil,
-            accessoryType: TableViewSampleData.accessoryType(for: indexPath)
+            customAccessoryView: section.hasAccessoryView ? MSTableViewCellSampleData.customAccessoryView : nil,
+            accessoryType: MSTableViewCellSampleData.accessoryType(for: indexPath)
         )
         cell.titleNumberOfLines = section.numberOfLines
         cell.subtitleNumberOfLines = section.numberOfLines
@@ -102,18 +103,15 @@ extension MSTableViewCellDemoController: UITableViewDataSource {
 // MARK: - MSTableViewCellDemoController: UITableViewDelegate
 
 extension MSTableViewCellDemoController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return TableViewSectionHeader.height
-    }
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableViewSectionHeader.identifier) as! TableViewSectionHeader
-        header.title = sections[section].title
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MSTableViewHeaderFooterView.identifier) as! MSTableViewHeaderFooterView
+        let section = sections[section]
+        header.setup(style: section.headerStyle, title: section.title)
         return header
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let title = sections[indexPath.section].item.title
+        let title = sections[indexPath.section].item.text1
         showAlertForDetailButtonTapped(title: title)
     }
 

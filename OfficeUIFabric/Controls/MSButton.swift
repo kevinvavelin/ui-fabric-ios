@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 // MARK: MSButtonStyle
 
 @objc public enum MSButtonStyle: Int, CaseIterable {
@@ -28,7 +30,7 @@ open class MSButton: UIButton {
     private struct Constants {
         static let borderWidth: CGFloat = 1
         static let cornerRadius: CGFloat = 8
-        static var titleFont: UIFont { return MSFonts.subhead }
+        static var titleFont: UIFont { return MSFonts.button1 }
     }
 
     @objc open var style: MSButtonStyle = .secondaryOutline {
@@ -58,6 +60,11 @@ open class MSButton: UIButton {
     @objc public init(style: MSButtonStyle = .secondaryOutline) {
         self.style = style
         super.init(frame: .zero)
+        initialize()
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
         initialize()
     }
 

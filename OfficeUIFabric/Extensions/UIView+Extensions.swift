@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 public extension UIView {
     var left: CGFloat {
         get { return frame.minX }
@@ -29,15 +31,11 @@ public extension UIView {
         set { frame.size.height = newValue }
     }
 
-    var safeAreaInsetsIfAvailable: UIEdgeInsets {
-        if #available(iOS 11, *) {
-            return safeAreaInsets
-        } else {
-            return .zero
-        }
+    private var contentWidth: CGFloat {
+        return (self as? UIScrollView)?.contentSize.width ?? bounds.width
     }
 
-    func fitIntoSuperview(usingConstraints: Bool = false, usingLeadingTrailing: Bool = true, margins: UIEdgeInsets = .zero, autoWidth: Bool = false, autoHeight: Bool = false) {
+    @objc func fitIntoSuperview(usingConstraints: Bool = false, usingLeadingTrailing: Bool = true, margins: UIEdgeInsets = .zero, autoWidth: Bool = false, autoHeight: Bool = false) {
         guard let superview = superview else {
             return
         }
@@ -68,6 +66,10 @@ public extension UIView {
             frame = superview.bounds.inset(by: margins)
             autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
+    }
+
+    @objc func fitIntoSuperview() {
+        fitIntoSuperview(usingConstraints: false, usingLeadingTrailing: true, margins: .zero, autoWidth: false, autoHeight: false)
     }
 
     func layer(withRoundedCorners corners: UIRectCorner, radius: CGFloat) -> CALayer {
@@ -105,5 +107,23 @@ public extension UIView {
         }
 
         return superview.findSuperview(of: aClass)
+    }
+
+    func flipSubviewsForRTL() {
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            subviews.forEach { $0.flipForRTL() }
+        }
+    }
+
+    func flipForRTL() {
+        frame = superview?.flipRectForRTL(frame) ?? frame
+    }
+
+    func flipRectForRTL(_ rect: CGRect) -> CGRect {
+        var newRect = rect
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            newRect.origin.x = contentWidth - rect.origin.x - rect.width
+        }
+        return newRect
     }
 }

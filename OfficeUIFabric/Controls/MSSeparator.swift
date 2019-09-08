@@ -3,6 +3,8 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 @objc public enum MSSeparatorStyle: Int {
     case `default`
     case shadow
@@ -10,10 +12,9 @@
     fileprivate var color: UIColor {
         switch self {
         case .default:
-            return MSColors.separator
+            return MSColors.Separator.default
         case .shadow:
-            // Matches shadow used in UINavigationBar
-            return UIColor.black.withAlphaComponent(0.3)
+            return MSColors.Separator.shadow
         }
     }
 }

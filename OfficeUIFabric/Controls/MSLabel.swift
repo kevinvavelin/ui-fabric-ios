@@ -3,15 +3,27 @@
 //  Licensed under the MIT License.
 //
 
+import UIKit
+
 open class MSLabel: UILabel {
     @objc open var colorStyle: MSTextColorStyle = .regular {
         didSet {
-            update()
+            updateTextColor()
         }
     }
     @objc open var style: MSTextStyle = .body {
         didSet {
-            update()
+            updateFont()
+        }
+    }
+    /**
+     The maximum allowed size point for the receiver's font. This property can be used
+     to restrict the largest size of the label when scaling due to Dynamic Type. The
+     default value is 0, indicating there is no maximum size.
+     */
+    @objc open var maxFontSize: CGFloat = 0 {
+        didSet {
+            updateFont()
         }
     }
 
@@ -28,16 +40,25 @@ open class MSLabel: UILabel {
     }
 
     private func initialize() {
-        update()
+        updateFont()
+        updateTextColor()
         NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeCategoryDidChange), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
 
-    private func update() {
-        font = style.font
+    private func updateFont() {
+        let defaultFont = style.font
+        if maxFontSize > 0 && defaultFont.pointSize > maxFontSize {
+            font = defaultFont.withSize(maxFontSize)
+        } else {
+            font = defaultFont
+        }
+    }
+
+    private func updateTextColor() {
         textColor = colorStyle.color
     }
 
     @objc private func handleContentSizeCategoryDidChange() {
-        update()
+        updateFont()
     }
 }

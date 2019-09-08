@@ -21,9 +21,10 @@
 		A5CEC22D20E450340016922A /* OfficeUIFabric.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A5CEC22A20E44FBF0016922A /* OfficeUIFabric.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A5DCA75E211E3A92005F4CB7 /* MSDrawerDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DCA75D211E3A92005F4CB7 /* MSDrawerDemoController.swift */; };
 		A5DCA760211E3B4C005F4CB7 /* DemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DCA75F211E3B4C005F4CB7 /* DemoController.swift */; };
-		B4147FAC2286347A00B52CB9 /* TableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4147FAB2286347A00B52CB9 /* TableViewSectionHeader.swift */; };
-		B4147FAE2286379900B52CB9 /* CollectionViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4147FAD2286379900B52CB9 /* CollectionViewSectionHeader.swift */; };
 		B42760DD21488FFA0021A4F7 /* MSAvatarViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42760DC21488FFA0021A4F7 /* MSAvatarViewDemoController.swift */; };
+		B441478F228E02540040E88E /* OtherCellsDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B441478E228E02540040E88E /* OtherCellsDemoController.swift */; };
+		B4414792228F6F740040E88E /* MSTableViewCellSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4414791228F6F740040E88E /* MSTableViewCellSampleData.swift */; };
+		B4414794228F6FDF0040E88E /* OtherCellsSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4414793228F6FDF0040E88E /* OtherCellsSampleData.swift */; };
 		B444D6B82183BA4B0002B4D4 /* MSBadgeViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B444D6B72183BA4B0002B4D4 /* MSBadgeViewDemoController.swift */; };
 		B45EB79221A4D047008646A2 /* MSBadgeFieldDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45EB79121A4D047008646A2 /* MSBadgeFieldDemoController.swift */; };
 		B4946764220A4DF10059045E /* MSCollectionViewCellDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4946763220A4DF10059045E /* MSCollectionViewCellDemoController.swift */; };
@@ -33,8 +34,13 @@
 		B4D852DB225C010A004B1B29 /* MSButtonDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D852DA225C010A004B1B29 /* MSButtonDemoController.swift */; };
 		B4E8F65221CD9579008A1598 /* MSHUDDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E8F65121CD9579008A1598 /* MSHUDDemoController.swift */; };
 		B4EF53C5215C45C400573E8F /* MSPersonaListViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF53C4215C45C400573E8F /* MSPersonaListViewDemoController.swift */; };
+		B4EF66542295F1A8007FEAB0 /* MSTableViewHeaderFooterViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF66532295F1A8007FEAB0 /* MSTableViewHeaderFooterViewDemoController.swift */; };
+		B4EF66562295F729007FEAB0 /* TableViewHeaderFooterSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF66552295F729007FEAB0 /* TableViewHeaderFooterSampleData.swift */; };
+		B4EF665B22974BF0007FEAB0 /* MSCollectionViewHeaderFooterViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF665A22974BF0007FEAB0 /* MSCollectionViewHeaderFooterViewDemoController.swift */; };
 		FD7254ED21471A3F002F4069 /* MSDateTimePickerDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7254EC21471A3F002F4069 /* MSDateTimePickerDemoController.swift */; };
+		FD7DF06221FB941500857267 /* MSTooltipDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DF06121FB941400857267 /* MSTooltipDemoController.swift */; };
 		FDCF7C8321BF35680058E9E6 /* MSSegmentedControlDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF7C8221BF35680058E9E6 /* MSSegmentedControlDemoController.swift */; };
+		FDDD73FD22C6D86B00A9D995 /* ObjectiveCDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDDD73FB22C6D86B00A9D995 /* ObjectiveCDemoController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,9 +75,10 @@
 		A5CEC22A20E44FBF0016922A /* OfficeUIFabric.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OfficeUIFabric.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5DCA75D211E3A92005F4CB7 /* MSDrawerDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDrawerDemoController.swift; sourceTree = "<group>"; };
 		A5DCA75F211E3B4C005F4CB7 /* DemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoController.swift; sourceTree = "<group>"; };
-		B4147FAB2286347A00B52CB9 /* TableViewSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionHeader.swift; sourceTree = "<group>"; };
-		B4147FAD2286379900B52CB9 /* CollectionViewSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSectionHeader.swift; sourceTree = "<group>"; };
 		B42760DC21488FFA0021A4F7 /* MSAvatarViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSAvatarViewDemoController.swift; sourceTree = "<group>"; };
+		B441478E228E02540040E88E /* OtherCellsDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCellsDemoController.swift; sourceTree = "<group>"; };
+		B4414791228F6F740040E88E /* MSTableViewCellSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSTableViewCellSampleData.swift; sourceTree = "<group>"; };
+		B4414793228F6FDF0040E88E /* OtherCellsSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCellsSampleData.swift; sourceTree = "<group>"; };
 		B444D6B72183BA4B0002B4D4 /* MSBadgeViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSBadgeViewDemoController.swift; sourceTree = "<group>"; };
 		B45EB79121A4D047008646A2 /* MSBadgeFieldDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSBadgeFieldDemoController.swift; sourceTree = "<group>"; };
 		B4946763220A4DF10059045E /* MSCollectionViewCellDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCollectionViewCellDemoController.swift; sourceTree = "<group>"; };
@@ -81,6 +88,9 @@
 		B4D852DA225C010A004B1B29 /* MSButtonDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonDemoController.swift; sourceTree = "<group>"; };
 		B4E8F65121CD9579008A1598 /* MSHUDDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSHUDDemoController.swift; sourceTree = "<group>"; };
 		B4EF53C4215C45C400573E8F /* MSPersonaListViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPersonaListViewDemoController.swift; sourceTree = "<group>"; };
+		B4EF66532295F1A8007FEAB0 /* MSTableViewHeaderFooterViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSTableViewHeaderFooterViewDemoController.swift; sourceTree = "<group>"; };
+		B4EF66552295F729007FEAB0 /* TableViewHeaderFooterSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderFooterSampleData.swift; sourceTree = "<group>"; };
+		B4EF665A22974BF0007FEAB0 /* MSCollectionViewHeaderFooterViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCollectionViewHeaderFooterViewDemoController.swift; sourceTree = "<group>"; };
 		CC45042B8AC98E3E251FC7E9 /* Pods-OfficeUIFabric.Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OfficeUIFabric.Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OfficeUIFabric.Demo/Pods-OfficeUIFabric.Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		FD6AE76C225679A4002CFDFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FD6AE76E225679A7002CFDFE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -119,7 +129,11 @@
 		FD6AE7B022567AC0002CFDFE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FD6AE7B222567AC1002CFDFE /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FD7254EC21471A3F002F4069 /* MSDateTimePickerDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDateTimePickerDemoController.swift; sourceTree = "<group>"; };
+		FD7DF06121FB941400857267 /* MSTooltipDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSTooltipDemoController.swift; sourceTree = "<group>"; };
 		FDCF7C8221BF35680058E9E6 /* MSSegmentedControlDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSSegmentedControlDemoController.swift; sourceTree = "<group>"; };
+		FDDD73FA22C6D86A00A9D995 /* OfficeUIFabric.Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OfficeUIFabric.Demo-Bridging-Header.h"; sourceTree = "<group>"; };
+		FDDD73FB22C6D86B00A9D995 /* ObjectiveCDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCDemoController.m; sourceTree = "<group>"; };
+		FDDD73FC22C6D86B00A9D995 /* ObjectiveCDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveCDemoController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				A5CEC21D20E436F20016922A /* Info.plist */,
+				FDDD73FA22C6D86A00A9D995 /* OfficeUIFabric.Demo-Bridging-Header.h */,
 			);
 			name = Configuration;
 			sourceTree = "<group>";
@@ -223,6 +238,7 @@
 				B444D6B72183BA4B0002B4D4 /* MSBadgeViewDemoController.swift */,
 				B4D852DA225C010A004B1B29 /* MSButtonDemoController.swift */,
 				B4946763220A4DF10059045E /* MSCollectionViewCellDemoController.swift */,
+				B4EF665A22974BF0007FEAB0 /* MSCollectionViewHeaderFooterViewDemoController.swift */,
 				FD7254EC21471A3F002F4069 /* MSDateTimePickerDemoController.swift */,
 				A5DCA75D211E3A92005F4CB7 /* MSDrawerDemoController.swift */,
 				B4E8F65121CD9579008A1598 /* MSHUDDemoController.swift */,
@@ -231,6 +247,11 @@
 				A5961FA8218A61BB00E2A506 /* MSPopupMenuDemoController.swift */,
 				FDCF7C8221BF35680058E9E6 /* MSSegmentedControlDemoController.swift */,
 				B498141521E42C140077B48D /* MSTableViewCellDemoController.swift */,
+				B4EF66532295F1A8007FEAB0 /* MSTableViewHeaderFooterViewDemoController.swift */,
+				FD7DF06121FB941400857267 /* MSTooltipDemoController.swift */,
+				FDDD73FC22C6D86B00A9D995 /* ObjectiveCDemoController.h */,
+				FDDD73FB22C6D86B00A9D995 /* ObjectiveCDemoController.m */,
+				B441478E228E02540040E88E /* OtherCellsDemoController.swift */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -238,9 +259,10 @@
 		B4C39550227A4A9300539EC2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				B4147FAD2286379900B52CB9 /* CollectionViewSectionHeader.swift */,
+				B4414791228F6F740040E88E /* MSTableViewCellSampleData.swift */,
+				B4414793228F6FDF0040E88E /* OtherCellsSampleData.swift */,
+				B4EF66552295F729007FEAB0 /* TableViewHeaderFooterSampleData.swift */,
 				B4C39551227A4AC800539EC2 /* TableViewSampleData.swift */,
-				B4147FAB2286347A00B52CB9 /* TableViewSectionHeader.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -257,7 +279,7 @@
 				A5CEC20920E436F10016922A /* Frameworks */,
 				A5CEC20A20E436F10016922A /* Resources */,
 				A5CEC22E20E450340016922A /* Embed Frameworks */,
-				FA0B37855C2572C2B62524DD /* [CP] Copy Pods Resources */,
+				BB1800B81CDBAA71A7489671 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,7 +302,7 @@
 				TargetAttributes = {
 					A5CEC20B20E436F10016922A = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -356,6 +378,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		BB1800B81CDBAA71A7489671 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OfficeUIFabric.Demo/Pods-OfficeUIFabric.Demo-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/AppCenter/AppCenterDistributeResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppCenterDistributeResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OfficeUIFabric.Demo/Pods-OfficeUIFabric.Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DAFF5A3F963CB63CE2AF6089 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,24 +418,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA0B37855C2572C2B62524DD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OfficeUIFabric.Demo/Pods-OfficeUIFabric.Demo-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/AppCenter/AppCenterDistributeResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppCenterDistributeResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OfficeUIFabric.Demo/Pods-OfficeUIFabric.Demo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -399,17 +425,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD7DF06221FB941500857267 /* MSTooltipDemoController.swift in Sources */,
+				B441478F228E02540040E88E /* OtherCellsDemoController.swift in Sources */,
 				A5961FA9218A61BB00E2A506 /* MSPopupMenuDemoController.swift in Sources */,
 				B42760DD21488FFA0021A4F7 /* MSAvatarViewDemoController.swift in Sources */,
 				A5DCA760211E3B4C005F4CB7 /* DemoController.swift in Sources */,
 				B45EB79221A4D047008646A2 /* MSBadgeFieldDemoController.swift in Sources */,
+				B4EF66562295F729007FEAB0 /* TableViewHeaderFooterSampleData.swift in Sources */,
 				B4D852DB225C010A004B1B29 /* MSButtonDemoController.swift in Sources */,
 				B4EF53C5215C45C400573E8F /* MSPersonaListViewDemoController.swift in Sources */,
 				A5DCA75E211E3A92005F4CB7 /* MSDrawerDemoController.swift in Sources */,
-				B4147FAC2286347A00B52CB9 /* TableViewSectionHeader.swift in Sources */,
+				FDDD73FD22C6D86B00A9D995 /* ObjectiveCDemoController.m in Sources */,
+				B4414792228F6F740040E88E /* MSTableViewCellSampleData.swift in Sources */,
 				A5CEC21420E436F10016922A /* DetailViewController.swift in Sources */,
 				B4E8F65221CD9579008A1598 /* MSHUDDemoController.swift in Sources */,
 				FD7254ED21471A3F002F4069 /* MSDateTimePickerDemoController.swift in Sources */,
+				B4EF665B22974BF0007FEAB0 /* MSCollectionViewHeaderFooterViewDemoController.swift in Sources */,
+				B4EF66542295F1A8007FEAB0 /* MSTableViewHeaderFooterViewDemoController.swift in Sources */,
 				B4946764220A4DF10059045E /* MSCollectionViewCellDemoController.swift in Sources */,
 				A5CEC21220E436F10016922A /* MasterViewController.swift in Sources */,
 				B498141621E42C140077B48D /* MSTableViewCellDemoController.swift in Sources */,
@@ -417,9 +449,9 @@
 				A589F856211BA71000471C23 /* MSLabelDemoController.swift in Sources */,
 				B4D852D922580661004B1B29 /* MSActivityIndicatorViewDemoController.swift in Sources */,
 				A5CEC21020E436F10016922A /* AppDelegate.swift in Sources */,
+				B4414794228F6FDF0040E88E /* OtherCellsSampleData.swift in Sources */,
 				B444D6B82183BA4B0002B4D4 /* MSBadgeViewDemoController.swift in Sources */,
 				A591A3F420F429EB001ED23B /* Demos.swift in Sources */,
-				B4147FAE2286379900B52CB9 /* CollectionViewSectionHeader.swift in Sources */,
 				B4C39552227A4AC800539EC2 /* TableViewSampleData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,6 +579,7 @@
 				APPCENTER_URL_SCHEME = "appcenter-$(APPCENTER_SECRET)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_NAME = "UI Fabric";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9KBH5RKYEW;
@@ -559,7 +592,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4596e7d8-5232-4b9f-82bf-63883e38cd5c";
 				PROVISIONING_PROFILE_SPECIFIER = "Office Fabric Demo Dogfood Distribution";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OBJC_BRIDGING_HEADER = "OfficeUIFabric.Demo/OfficeUIFabric.Demo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Dogfood;
@@ -686,6 +720,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_NAME = "UI Fabric DEV";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = UBF8T346G9;
@@ -698,7 +733,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "63d62159-2691-4b44-9553-b668cc1746c1";
 				PROVISIONING_PROFILE_SPECIFIER = "Office UI Fabric Demo Development";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OBJC_BRIDGING_HEADER = "OfficeUIFabric.Demo/OfficeUIFabric.Demo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -709,6 +746,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_NAME = "UI Fabric";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = UBF8T346G9;
@@ -721,7 +759,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "63d62159-2691-4b44-9553-b668cc1746c1";
 				PROVISIONING_PROFILE_SPECIFIER = "Office UI Fabric Demo Development";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OBJC_BRIDGING_HEADER = "OfficeUIFabric.Demo/OfficeUIFabric.Demo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
